@@ -1,0 +1,36 @@
+Based on the provided CSV file, it looks like the data relates to environmental profiles and layers, with information about the location, depth range, and organic matter content of the layers.
+
+To store this data in a normalized way, I first identify the entities (or tables) in the dataset. It looks like there are several entities that could be represented as tables:
+
+Profiles: Each row in the CSV file corresponds to a single profile, which could be represented as a table with columns for the profile_id, profile_layer_id, and country_name.
+
+Layers: Each profile may have multiple layers, which could be represented as a separate table with columns for the profile_layer_id, profile_id, upper_depth, lower_depth and layer_name
+
+Data_points: Each profiles and layers have data points which could be represented as a separate table with columns like data_point_id, profile_layer_id, x, y, litter
+
+Organic_Matter: This table contains information about the organic matter content of each layer, which could be represented as a separate table with columns for the profile_layer_id, orgc_value, orgc_value_avg, orgc_method, orgc date, orgc_dataset_id and orgc_profile_code'.
+
+
+With these entities identified, I create a database schema in 3NF by creating tables for each entity. 
+
+Once the schema is set up, I have used a script to import the data from the CSV file into the appropriate tables in the database. This could be done using SQL INSERT statements 
+
+In docker-compose, the schema table is mounted to directory docker-entrypoint-initdb.d, then ran docker-compose up.
+
+if there is an error like connection of python program to mysql , try again docker-compose up
+
+To check the data stored in tables:
+docker exec -it containerid /bin/bash
+mysql -u user -p
+provide the password as password
+
+show databases;
+
+use seqanadb;
+
+show tables;
+
+use the select query:
+select * from profiles;
+
+
